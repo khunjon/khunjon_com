@@ -1,0 +1,28 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+export interface Props {
+  title: string;
+  date: Date;
+  categories?: string[];
+}
+
+const { title, date, categories } = Astro.props;
+---
+
+<BaseLayout title={title}>
+  <article>
+    <h1>{title}</h1>
+    <time datetime={date.toISOString()}>
+      {date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+    </time>
+    {categories && categories.length > 0 && (
+      <div class="categories">
+        Categories: {categories.join(', ')}
+      </div>
+    )}
+    <div class="content">
+      <slot />
+    </div>
+  </article>
+</BaseLayout>
